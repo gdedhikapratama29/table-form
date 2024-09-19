@@ -3,6 +3,7 @@ const mysql = require('mysql');
 const { title } = require('process');
 const BodyParser = require('body-parser');
 
+
 const app = express();
 
 app.use(BodyParser.urlencoded({ extended: true }));
@@ -40,7 +41,51 @@ db.connect((err) => {
         })
      });
 
+     app.get("/edit/:id",(req,res) => {
+        const user = `select * from user where id = ${req.params.id}`;
+        db.query(user,(err, result) => {
+            // console.log('ba')
+            console.log(result[0].nama)
+           res.render("edit.ejs",{user: result[0]})
+       });
+     })
+
+     app.post("/update/:id", (req, res) => {
+        console.log(req.body)
+        const id = parseInt(req.params.id);
+        const insertSql = `UPDATE user
+                           SET nama = '${req.body.nama}', 
+                               email = '${req.body.email}', 
+                               password = '${req.body.password}', 
+                               no_hp = '${req.body.no_hp}', 
+                               tanggal_lahir = '${req.body.tanggal_lahir}', 
+                               jenis_kelamin = '${req.body.jenis_kelamin}', 
+                               upload_file = '${req.body.upload_file}'
+                           WHERE id = ?`;
+        
+        db.query(insertSql, [id], (err, result) => {
+            if (err) {
+                console.error(err);
+                res.status(500).send('Terjadi kesalahan saat mengupdate data');
+            } else {
+                res.redirect('/');
+            }
+        });
+    });
+
+    app.get("/delete/:id", (req, res) => {
+        // console.log(req.params.id)
+        const id = parseInt(req.params.id);
+        const sql = `DELETE FROM user WHERE id = ${id}`;
+        db.query(sql, (err, result) => {
+            if (err) throw err;
+            res.redirect("/");
+        })
+
+    }); 
+  
 });
+
 
 app.listen(8000, () => {
     console.log('server running di port 8000');

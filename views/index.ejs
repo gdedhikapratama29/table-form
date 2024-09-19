@@ -11,10 +11,17 @@
     
 </head>
 <body>
-    <div class="container">
-        <h1 class="text-center p-3"><%= title %></h1>
+
+  <nav class="navbar bg-dark">
+    <div class="container-fluid justify-content-center">
+      <span class="navbar-brand mb-0 h1 text-white fw-bold"><%= title %></span>
+    </div>
+  </nav>
+
+
+    <div class="container mt-3">
          
-          <table id="example" class="table table-bordered table-sm table-striped">
+          <table id="example" class="table table-bordered table-sm table-striped table-responsive">
             <thead class="table-dark">
               <tr>
                 <th scope="col">id</th>
@@ -25,6 +32,7 @@
                 <th scope="col">tanggal_lahir</th>
                 <th scope="col">jenis_kelamin</th>
                 <th scope="col">upload_file</th>
+                <th scope="col">action</th>
               </tr>
             </thead>
             <tbody class="table table-primary">
@@ -37,7 +45,11 @@
                     <th scope="row"><%= user.no_hp %></th>
                     <th scope="row"><%= user.tanggal_lahir %></th>
                     <th scope="row"><%= user.jenis_kelamin %></th>
-                    <th scope="row"><%= user.upload_file  %></th>
+                    <th scope="row"><%= user.upload_file %></th>
+                    <td class="d-flex gap-2">
+                      <a href="/edit/<%= user.id %>" class="btn btn-success">update</a>
+                      <a href="/delete/<%= user.id %>" class="btn btn-danger" onclick="return confirm('anda yakin ingin menghapus data ini?')">Delete</a>
+                    </td>
                 </tr>
                 <% } %>
             </tbody>
@@ -107,6 +119,9 @@
 
     <script>
       new DataTable('#example');
+
+     
+      
      </script>
 </body>
 </html>
