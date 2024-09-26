@@ -29,7 +29,6 @@
                 <th scope="col">email</th>
                 <th scope="col">password</th>
                 <th scope="col">no_hp</th>
-                <th scope="col">tanggal_lahir</th>
                 <th scope="col">jenis_kelamin</th>
                 <th scope="col">upload_file</th>
                 <th scope="col">action</th>
@@ -43,12 +42,12 @@
                     <th scope="row"><%= user.email %></th>
                     <th scope="row"><%= user.password %></th>
                     <th scope="row"><%= user.no_hp %></th>
-                    <th scope="row"><%= user.tanggal_lahir %></th>
                     <th scope="row"><%= user.jenis_kelamin %></th>
                     <th scope="row"><%= user.upload_file %></th>
                     <td class="d-flex gap-2">
-                      <a href="/edit/<%= user.id %>" class="btn btn-success">update</a>
+                      <a href="/edit/<%= user.id %>" class="btn btn-primary">update</a>
                       <a href="/delete/<%= user.id %>" class="btn btn-danger" onclick="return confirm('anda yakin ingin menghapus data ini?')">Delete</a>
+                      <a href="https://wa.me/<%= user.no_hp.replace(/[-\s]/g, '') %>?text=hello nama km siapa?" target="_blank" class="btn btn-success">whatsapp</a>
                     </td>
                 </tr>
                 <% } %>
@@ -81,18 +80,13 @@
               </div>
 
               <div class="row mb-3">
-                <label for="phone" class="col-sm-2 col-form-label">No HP :</label>
+                <label id="phone" class="col-sm-2 col-form-label">No HP :</label>
                 <div class="col-sm-10">
-                  <input type="tel" name="no_hp" class="form-control">
+                  <input type="text" id="no_hp" placeholder="+62 xxx-xxxx-xxxx" name="no_hp" class="form-control" required>
                 </div>
               </div>
 
-              <div class="row mb-3">
-                <label for="date" class="col-sm-2 col-form-label">Tanggal lahir :</label>
-                <div class="col-sm-10">
-                  <input type="date" name="tanggal_lahir" class="form-control">
-                </div>
-              </div>
+             
 
               <div class="row mb-3">
                 <label for="nama" class="col-sm-2 col-form-label">upload file :</label>
@@ -121,7 +115,6 @@
       new DataTable('#example');
 
      
-      
      </script>
 </body>
 </html>

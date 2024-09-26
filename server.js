@@ -19,6 +19,8 @@ const db = mysql.createConnection({
     password: ''
 });
 
+
+
 db.connect((err) => {
     if (err) throw err
     console.log('connected');
@@ -51,6 +53,7 @@ db.connect((err) => {
      })
 
      app.post("/update/:id", (req, res) => {
+        console.log('update')
         console.log(req.body)
         const id = parseInt(req.params.id);
         const insertSql = `UPDATE user
@@ -74,8 +77,8 @@ db.connect((err) => {
     });
 
     app.get("/delete/:id", (req, res) => {
-        // console.log(req.params.id)
         const id = parseInt(req.params.id);
+        console.log(id)
         const sql = `DELETE FROM user WHERE id = ${id}`;
         db.query(sql, (err, result) => {
             if (err) throw err;
